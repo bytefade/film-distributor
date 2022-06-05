@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Distributor;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ class MoviesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = \Faker\Factory::create('pt_BR');
+        $faker = Factory::create('pt_BR');
 
         for ($i = 0; $i < 50; $i++) {
             DB::table('movies')->insert([
