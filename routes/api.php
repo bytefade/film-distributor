@@ -25,4 +25,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/distributors', 'DistributorController@store');
     Route::put('/distributors/{distributor}', 'DistributorController@update');
     Route::delete('/distributors/{distributor}', 'DistributorController@delete');
+
+    Route::get('/movies', 'MovieController@index');
+    Route::get('/movies/{movie}', 'MovieController@show');
+    Route::post('/movies', 'MovieController@store');
+    Route::put('/movies/{movie}', 'MovieController@update');
+    Route::delete('/movies/{movie}', 'MovieController@delete');
 });

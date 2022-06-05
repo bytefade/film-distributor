@@ -28,7 +28,7 @@ class DistributorController extends Controller
     {
         $distributor->update($request->all());
 
-        return response()->json($distributor, 200);
+        return response()->json($distributor);
     }
 
     public function delete(Distributor $distributor)
