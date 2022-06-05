@@ -16,15 +16,16 @@ return new class extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
-            $table->enum('status_id', [0, 1, 2, 3]);
+            $table->enum('status', [0, 1, 2, 3]);
             $table->foreignIdFor(Distributor::class);
             $table->string('roe');
             $table->string('national_title');
             $table->string('original_title');
             $table->string('url_trailer');
-            $table->string('synopsis');
-            $table->string('release_date');
-            $table->integer('age_group');
+            $table->text('synopsis');
+            $table->date('launch_date');
+            $table->integer('classification');
+            $table->integer('duration');
             $table->timestamps();
         });
     }

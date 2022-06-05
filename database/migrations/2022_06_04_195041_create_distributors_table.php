@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('cnpj');
             $table->string('social_name');
-            $table->string('surname');
+            $table->string('name');
             $table->timestamps();
         });
     }
