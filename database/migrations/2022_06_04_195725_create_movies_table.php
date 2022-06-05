@@ -27,7 +27,8 @@ return new class extends Migration
             $table->integer('classification');
             $table->integer('duration');
             $table->softDeletes();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
