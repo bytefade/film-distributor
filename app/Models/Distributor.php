@@ -9,5 +9,7 @@ class Distributor extends Model
 {
     use HasFactory;
 
+    public $primaryKey = 'cnpj';
+
     protected $fillable = ['cnpj', 'social_name', 'surname'];
 }

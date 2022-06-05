@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Distributor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/distributors', 'DistributorController@index');
+    Route::get('/distributors/{distributor}', 'DistributorController@show');
+    Route::post('/distributors', 'DistributorController@store');
+    Route::put('/distributors/{distributor}', 'DistributorController@update');
+    Route::delete('/distributors/{distributor}', 'DistributorController@delete');
 });
