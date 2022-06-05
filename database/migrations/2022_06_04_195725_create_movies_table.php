@@ -26,6 +26,7 @@ return new class extends Migration
             $table->date('launch_date');
             $table->integer('classification');
             $table->integer('duration');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
