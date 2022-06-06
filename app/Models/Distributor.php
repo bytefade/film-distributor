@@ -11,5 +11,5 @@ class Distributor extends Model
 
     public $primaryKey = 'cnpj';
 
-    protected $fillable = ['cnpj', 'social_name', 'surname'];
+    protected $fillable = ['cnpj', 'social_name', 'name'];
 }

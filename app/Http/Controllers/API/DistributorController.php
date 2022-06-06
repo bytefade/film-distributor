@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\DistributorResource;
 use App\Models\Distributor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DistributorController extends BaseController
 {
@@ -70,7 +71,7 @@ class DistributorController extends BaseController
 
     }
 
-    public function delete(Distributor $distributor)
+    public function destroy(Distributor $distributor)
     {
         $distributor->delete();
 
