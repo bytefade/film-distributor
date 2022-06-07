@@ -2,40 +2,87 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class MovieController extends Controller
+class MovieController extends BaseController
 {
     public function index()
     {
-        return Movie::all();
+        $movies = Movie::all();
+
+        return $this->sendResponse(MovieResource::collection($movies), 'Filmes recuperados com sucesso.');
     }
 
-    public function show(Movie $movie)
+    public function show($movie)
     {
-        return $movie;
+        $movie = Movie::find($movie);
+
+        if (is_null($movie)) {
+            return $this->sendError('Filme não encontrado.');
+        }
+
+        return $this->sendResponse(new MovieResource($movie), 'Filmes recuperado com sucesso.');
     }
 
     public function store(Request $request)
     {
-        $movie = Movie::create($request->all());
+        $input = $request->all();
 
-        return response()->json($movie, 201);
+        $validator = Validator::make($input, [
+            'distributor_id' => 'required',
+            'national_title' => 'required',
+            'classification' => 'required',
+            'duration' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Erro na validação', $validator->errors());
+        }
+
+        $movie = Movie::create($input);
+
+        return $this->sendResponse(new MovieResource($movie), 'Filme criado com sucesso.');
     }
 
     public function update(Request $request, Movie $movie)
     {
-        $movie->update($request->all());
+        $input = $request->all();
 
-        return response()->json($movie);
+        $validator = Validator::make($input, [
+            'distributor_id' => 'required',
+            'national_title' => 'required',
+            'classification' => 'required',
+            'duration' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Erros na validação', $validator->errors());
+        }
+
+        $movie->status = $input['status'];
+        $movie->distributor_id = $input['distributor_id'];
+        $movie->roe = $input['roe'];
+        $movie->national_title = $input['national_title'];
+        $movie->original_title = $input['original_title'];
+        $movie->url_trailer = $input['url_trailer'];
+        $movie->synopsis = $input['synopsis'];
+        $movie->launch_date = $input['launch_date'];
+        $movie->classification = $input['classification'];
+        $movie->duration = $input['duration'];
+        $movie->save();
+
+        return $this->sendResponse(new MovieResource($movie), 'Filme atualizado com sucesso.');
+
     }
 
-    public function delete(Movie $movie)
+    public function destroy(Movie $movie)
     {
         $movie->delete();
 
-        return response()->json(null, 204);
+        return $this->sendResponse([], 'Filme apagado com sucesso.');
     }
 }
